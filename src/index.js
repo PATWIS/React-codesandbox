@@ -1,17 +1,12 @@
 import React from "react";
 import { render } from "react-dom";
-import Hello from "./Hello";
-import Nav from "./components/Nav";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-const styles = {
-  fontFamily: "sans-serif",
-  textAlign: "center"
-};
+import Header from "./components/Header";
+import { BrowserRouter as Router } from "react-router-dom";
 
 const App = () => (
   <Router>
     <div className="container">
-      <Nav />
+      <Header />
     </div>
   </Router>
 );
