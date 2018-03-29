@@ -6,6 +6,9 @@ import Tabs, { Tab } from "material-ui/Tabs";
 const styles = theme => ({
   flex: {
     flex: 1
+  },
+  button: {
+    margin: theme.spacing.unit
   }
 });
 
