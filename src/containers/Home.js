@@ -6,6 +6,7 @@ import Button from "material-ui/Button";
 import AddIcon from "material-ui-icons/Add";
 import classNames from "classnames";
 import { withStyles } from "material-ui/styles";
+import { AddNew } from "../components/Buttons";
 
 const styles = theme => ({
   root: {
@@ -27,7 +28,7 @@ const Home = props => {
   return (
     <Grid className={classes.root} justify="center" container>
       <Grid item xs={12} sm={11} md={8} className={classes.content}>
-        <PageHeadline />
+        <PageHeadline name={"Events List"} buttons={<AddNew />} />
         <EventsList />
         {/*<Button variant="fab" color="primary" className={classes.fab}>
           <AddIcon />

@@ -1,6 +1,7 @@
 import React from "react";
 import { render } from "react-dom";
-import Home from "./hoc/Home";
+import Home from "./containers/Home";
+import EventForm from "./containers/EventForm";
 import Header from "./components/Header";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import CssBaseline from "material-ui/CssBaseline";
@@ -11,6 +12,7 @@ const App = () => (
       <CssBaseline />
       <Header />
       <Route exact path="/" component={Home} />
+      <Route exact path="/event/new" component={EventForm} />
     </div>
   </Router>
 );
