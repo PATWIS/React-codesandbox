@@ -1,7 +1,7 @@
 import * as React from "react";
 import PageHeadline from "../components/PageHeadline";
 import Grid from "material-ui/Grid";
-import { Cancel } from "../components/Buttons";
+import { Cancel, Save } from "../components/Buttons";
 
 import { withStyles } from "material-ui/styles";
 import Paper from "material-ui/Paper";
@@ -48,7 +48,10 @@ class EventForm extends React.Component {
       <React.Fragment>
         <Grid className={classes.root} justify="center" container>
           <Grid item xs={12} sm={11} md={8} className={classes.content}>
-            <PageHeadline name={"Add new event"} buttons={<Cancel />} />
+            <PageHeadline
+              name={"Add new event"}
+              buttons={[<Save />, <Cancel />]}
+            />
             <Paper className={classes.paper}>
               <form>
                 <label>

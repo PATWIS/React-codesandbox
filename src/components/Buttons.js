@@ -50,8 +50,31 @@ class CancelBtn extends React.Component {
     const { classes } = this.props;
     return (
       <Link to="/" className={classes.link}>
-        <Button variant="raised" className={classes.button} color="default">
+        <Button
+          size="small"
+          variant="raised"
+          className={classes.button}
+          color="default"
+        >
           Cancel
+        </Button>
+      </Link>
+    );
+  }
+}
+
+class SaveBtn extends React.Component {
+  render() {
+    const { classes } = this.props;
+    return (
+      <Link to="/" className={classes.link}>
+        <Button
+          size="small"
+          variant="raised"
+          className={classes.button}
+          color="primary"
+        >
+          Save
         </Button>
       </Link>
     );
@@ -60,5 +83,6 @@ class CancelBtn extends React.Component {
 
 const AddNew = withStyles(styles)(AddNewBtn);
 const Cancel = withStyles(styles)(CancelBtn);
+const Save = withStyles(styles)(SaveBtn);
 
-export { AddNew, Cancel };
+export { AddNew, Cancel, Save };
