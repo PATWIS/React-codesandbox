@@ -14,13 +14,23 @@ class EventsList extends React.Component {
     list: [0, 1]
   };
 
+  componentDidMount() {
+    fetch("https://jsonplaceholder.typicode.com/posts/1")
+      .then(response => response.json())
+      .then(json => {
+        this.setState({
+          list: [json]
+        });
+      });
+  }
+
   render() {
     const { classes } = this.props;
     const { value, list } = this.state;
 
     return (
       <div>
-        <div>{list.map(e => <Event />)}</div>
+        <div>{list.map(e => <Event data={e} />)}</div>
       </div>
     );
   }

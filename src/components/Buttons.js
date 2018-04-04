@@ -65,18 +65,17 @@ class CancelBtn extends React.Component {
 
 class SaveBtn extends React.Component {
   render() {
-    const { classes } = this.props;
+    const { classes, onClickHandler } = this.props;
     return (
-      <Link to="/" className={classes.link}>
-        <Button
-          size="small"
-          variant="raised"
-          className={classes.button}
-          color="primary"
-        >
-          Save
-        </Button>
-      </Link>
+      <Button
+        onClick={onClickHandler}
+        size="small"
+        variant="raised"
+        className={classes.button}
+        color="primary"
+      >
+        Save
+      </Button>
     );
   }
 }

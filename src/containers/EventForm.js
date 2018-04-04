@@ -29,7 +29,7 @@ const styles = theme => ({
 class EventForm extends React.Component {
   state = {
     isGoing: true,
-    numberOfGuests: 2
+    name: ""
   };
 
   handleInputChange = event => {
@@ -42,6 +42,10 @@ class EventForm extends React.Component {
     });
   };
 
+  fooClick = () => {
+    alert("fooClick");
+  };
+
   render() {
     const { classes } = this.props;
     return (
@@ -50,7 +54,7 @@ class EventForm extends React.Component {
           <Grid item xs={12} sm={11} md={8} className={classes.content}>
             <PageHeadline
               name={"Add new event"}
-              buttons={[<Save />, <Cancel />]}
+              buttons={[<Save onClickHandler={this.fooClick} />, <Cancel />]}
             />
             <Paper className={classes.paper}>
               <form>
@@ -65,11 +69,11 @@ class EventForm extends React.Component {
                 </label>
                 <br />
                 <label>
-                  Number of guests:
+                  Name:
                   <input
-                    name="numberOfGuests"
-                    type="number"
-                    value={this.state.numberOfGuests}
+                    name="name"
+                    type="text"
+                    value={this.state.name}
                     onChange={this.handleInputChange}
                   />
                 </label>
