@@ -24,12 +24,12 @@ const styles = theme => ({
 });
 
 const Home = props => {
-  const { classes, theme } = props;
+  const { classes, history } = props;
   return (
     <Grid className={classes.root} justify="center" container>
       <Grid item xs={12} sm={11} md={8} className={classes.content}>
         <PageHeadline name={"Events List"} buttons={<AddNew />} />
-        <EventsList />
+        <EventsList history={history} />
         {/*<Button variant="fab" color="primary" className={classes.fab}>
           <AddIcon />
         </Button> */}

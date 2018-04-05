@@ -11,26 +11,33 @@ const styles = theme => ({
 class EventsList extends React.Component {
   state = {
     value: "home",
-    list: [0, 1]
+    list: []
   };
 
   componentDidMount() {
-    fetch("https://jsonplaceholder.typicode.com/posts/1")
+    // fetch("http://localhost:3000/items")
+    fetch("/db.json", {
+      headers: {
+        "content-type": "application/json"
+      }
+    })
       .then(response => response.json())
       .then(json => {
         this.setState({
-          list: [json]
+          list: json.items
         });
       });
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, history } = this.props;
     const { value, list } = this.state;
 
     return (
       <div>
-        <div>{list.map(e => <Event data={e} />)}</div>
+        <div>
+          {list.map(e => <Event key={e.id} history={history} data={e} />)}
+        </div>
       </div>
     );
   }

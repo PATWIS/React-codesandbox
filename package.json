@@ -6,6 +6,7 @@
   "homepage": "https://codesandbox.io/s/new",
   "main": "src/index.js",
   "dependencies": {
+    "json-server": "0.12.1",
     "material-ui": "next",
     "material-ui-icons": "1.0.0-beta.36",
     "react": "16.2.0",

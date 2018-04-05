@@ -3,11 +3,6 @@ import Divider from "material-ui/Divider";
 import { withStyles } from "material-ui/styles";
 import Typography from "material-ui/Typography";
 import Toolbar from "material-ui/Toolbar";
-import Input, { InputLabel } from "material-ui/Input";
-import { MenuItem } from "material-ui/Menu";
-import { FormControl, FormHelperText } from "material-ui/Form";
-import Select from "material-ui/Select";
-import { AddNew } from "./Buttons";
 
 const styles = theme => ({
   flex: {

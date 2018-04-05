@@ -40,12 +40,12 @@ const styles = theme => ({
 });
 
 class Header extends React.Component {
+  LoginHandler = () => {
+    alert("not implemented");
+  };
+
   render() {
     const { classes } = this.props;
-
-    const LoginHandler = () => {
-      alert("not implemented");
-    };
 
     return (
       <div className={classes.root}>
@@ -61,7 +61,7 @@ class Header extends React.Component {
               </Link>
             </Typography>
 
-            <Button onClick={LoginHandler} color="inherit">
+            <Button onClick={this.LoginHandler} color="inherit">
               Login
             </Button>
           </Toolbar>

@@ -12,7 +12,8 @@ const App = () => (
       <CssBaseline />
       <Header />
       <Route exact path="/" component={Home} />
-      <Route exact path="/event/new" component={EventForm} />
+      <Route path="/event/new" component={EventForm} />
+      <Route path="/event/:id" component={EventForm} />
     </div>
   </Router>
 );
