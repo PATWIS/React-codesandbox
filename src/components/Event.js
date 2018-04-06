@@ -8,10 +8,12 @@ const styles = theme => ({
   root: {
     flex: 1
   },
+  button: {
+    margin: 20
+  },
   paper: {
     height: 150,
     marginTop: 20
-    // width: 600
   },
   title: {
     padding: 20
@@ -19,8 +21,12 @@ const styles = theme => ({
 });
 
 class Event extends React.Component {
+  _handleDelete(data) {
+    this.props._handleDelete(data);
+  }
+
   goToEdit = () => {
-    const { data } = this.props;
+    const { data, history } = this.props;
     this.props.history.push(`/event/${data.id}`);
   };
 
@@ -32,11 +38,19 @@ class Event extends React.Component {
           Title: {data.title}
         </Typography>
         <Button
-          color="inherit"
+          variant="raised"
           onClick={this.goToEdit}
-          className={classes.flex}
+          className={classes.button}
         >
-          Details
+          Edit
+        </Button>
+        <Button
+          variant="raised"
+          color="secondary"
+          onClick={this._handleDelete.bind(this, data)}
+          className={classes.button}
+        >
+          Delete
         </Button>
       </Paper>
     );

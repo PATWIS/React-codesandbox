@@ -10,28 +10,77 @@ const styles = theme => ({
 
 class EventsList extends React.Component {
   state = {
-    value: "home",
-    list: []
+    list: [],
+    loading: true
+  };
+
+  deleteItem = data => {
+    let url = `http://localhost:3000/items/${data.id}`;
+
+    fetch(url, {
+      method: "DELETE"
+    }).then(() => {
+      console.log(`item ${data.title} has deleted.`);
+
+      this.setState(prevState => ({
+        list: prevState.list.filter(el => el !== data.id)
+      }));
+    });
   };
 
   componentDidMount() {
     fetch("http://localhost:3000/items")
       .then(response => response.json())
-      .then(json => {
+      .catch(e => {
+        console.log(e);
         this.setState({
-          list: json
+          loading: false
+        });
+      })
+      .then(json => {
+        console.log(json);
+        this.setState({
+          list: json,
+          loading: false
         });
       });
   }
 
   render() {
-    const { classes, history } = this.props;
-    const { value, list } = this.state;
+    const { history } = this.props;
+    const { list, loading } = this.state;
 
     return (
       <div>
         <div>
-          {list.map(e => <Event key={e.id} history={history} data={e} />)}
+          {loading ? (
+            "loading..."
+          ) : list ? (
+            Object.keys(list).length === 0 && list.constructor === Object ? (
+              <p>
+                Please check if you create "list" object in your local db.json
+              </p>
+            ) : list.length === 0 ? (
+              <p> There are no elements, please add new item.</p>
+            ) : (
+              list.map(e => (
+                <Event
+                  key={e.id}
+                  _handleDelete={this.deleteItem}
+                  history={history}
+                  data={e}
+                />
+              ))
+            )
+          ) : (
+            <div>
+              <p>
+                Please, run local json-server. You can find more info{" "}
+                <a href="https://github.com/typicode/json-server">here</a>.{" "}
+              </p>
+              <p>Copy content from public/db.json</p>
+            </div>
+          )}
         </div>
       </div>
     );

@@ -46,8 +46,6 @@ class EventForm extends React.Component {
   componentDidMount() {
     const { history, match } = this.props;
 
-    console.log(history.location.pathname);
-    console.log(history);
     history.location.pathname === "/add-new"
       ? this.setState({
           name: "",
@@ -77,10 +75,6 @@ class EventForm extends React.Component {
     }).then(() => this.props.history.push("/"));
   };
 
-  foo = () => {
-    alert(this.state.mode);
-  };
-
   update = e => {
     e.preventDefault();
     const { match } = this.props;
@@ -105,11 +99,10 @@ class EventForm extends React.Component {
         <Grid className={classes.root} justify="center" container>
           <Grid item xs={12} sm={11} md={8} className={classes.content}>
             <PageHeadline
-              name={"Add new event"}
+              name={mode === "new" ? "Add new item" : "Edit item"}
               buttons={[
                 <Save
                   onClickHandler={mode === "new" ? this.addNew : this.update}
-                  // onClickHandler={this.foo}
                 />,
                 <Cancel />
               ]}
