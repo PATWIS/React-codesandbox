@@ -1,6 +1,6 @@
 import React from "react";
 import { withStyles } from "material-ui/styles";
-import Event from "./Event";
+import Item from "./Item";
 
 const styles = theme => ({
   root: {
@@ -8,7 +8,7 @@ const styles = theme => ({
   }
 });
 
-class EventsList extends React.Component {
+class ItemsList extends React.Component {
   state = {
     list: [],
     loading: true
@@ -21,7 +21,6 @@ class EventsList extends React.Component {
       method: "DELETE"
     }).then(() => {
       console.log(`item ${data.title} has deleted.`);
-
       this.setState(prevState => ({
         list: prevState.list.filter(el => el !== data.id)
       }));
@@ -64,7 +63,7 @@ class EventsList extends React.Component {
               <p> There are no elements, please add new item.</p>
             ) : (
               list.map(e => (
-                <Event
+                <Item
                   key={e.id}
                   _handleDelete={this.deleteItem}
                   history={history}
@@ -87,4 +86,4 @@ class EventsList extends React.Component {
   }
 }
 
-export default withStyles(styles)(EventsList);
+export default withStyles(styles)(ItemsList);

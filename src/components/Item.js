@@ -20,14 +20,14 @@ const styles = theme => ({
   }
 });
 
-class Event extends React.Component {
+class Item extends React.Component {
   _handleDelete(data) {
     this.props._handleDelete(data);
   }
 
   goToEdit = () => {
     const { data, history } = this.props;
-    this.props.history.push(`/event/${data.id}`);
+    this.props.history.push(`/item/${data.id}`);
   };
 
   render() {
@@ -57,4 +57,4 @@ class Event extends React.Component {
   }
 }
 
-export default withStyles(styles)(Event);
+export default withStyles(styles)(Item);

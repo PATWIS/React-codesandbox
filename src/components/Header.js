@@ -60,7 +60,6 @@ class Header extends React.Component {
                 App Example
               </Link>
             </Typography>
-
             <Button onClick={this.LoginHandler} color="inherit">
               Login
             </Button>

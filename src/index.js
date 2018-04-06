@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "react-dom";
 import Home from "./containers/Home";
-import EventForm from "./containers/EventForm";
+import ItemForm from "./containers/ItemForm";
 import Header from "./components/Header";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import CssBaseline from "material-ui/CssBaseline";
@@ -12,8 +12,8 @@ const App = () => (
       <CssBaseline />
       <Header />
       <Route exact path="/" component={Home} />
-      <Route path="/add-new" component={EventForm} />
-      <Route path="/event/:id" component={EventForm} />
+      <Route path="/add-new" component={ItemForm} />
+      <Route path="/item/:id" component={ItemForm} />
     </div>
   </Router>
 );

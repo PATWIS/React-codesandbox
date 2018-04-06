@@ -26,15 +26,15 @@ const styles = theme => ({
   }
 });
 
-class EventForm extends React.Component {
+class ItemForm extends React.Component {
   state = {
     isGoing: true,
     name: "",
     mode: ""
   };
 
-  handleInputChange = event => {
-    const target = event.target;
+  handleInputChange = item => {
+    const target = item.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
 
@@ -127,4 +127,4 @@ class EventForm extends React.Component {
   }
 }
 
-export default withStyles(styles)(EventForm);
+export default withStyles(styles)(ItemForm);
