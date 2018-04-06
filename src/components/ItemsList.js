@@ -57,7 +57,8 @@ class ItemsList extends React.Component {
           ) : list ? (
             Object.keys(list).length === 0 && list.constructor === Object ? (
               <p>
-                Please check if you create "list" object in your local db.json
+                Please check if have you created "list" object in your local
+                db.json
               </p>
             ) : list.length === 0 ? (
               <p> There are no elements, please add new item.</p>
@@ -74,10 +75,13 @@ class ItemsList extends React.Component {
           ) : (
             <div>
               <p>
-                Please, run local json-server. You can find more info{" "}
-                <a href="https://github.com/typicode/json-server">here</a>.{" "}
+                Please, run local json-server and copy content from
+                public/db.json.
               </p>
-              <p>Copy content from public/db.json</p>
+              <p>
+                You can find more info here:
+                https://github.com/typicode/json-server
+              </p>
             </div>
           )}
         </div>
