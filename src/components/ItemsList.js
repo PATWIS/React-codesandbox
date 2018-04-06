@@ -22,7 +22,7 @@ class ItemsList extends React.Component {
     }).then(() => {
       console.log(`item ${data.title} has deleted.`);
       this.setState(prevState => ({
-        list: prevState.list.filter(el => el !== data.id)
+        list: prevState.list.filter(el => el.id !== data.id)
       }));
     });
   };
