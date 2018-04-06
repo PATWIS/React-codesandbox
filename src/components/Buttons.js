@@ -35,7 +35,7 @@ class AddNewBtn extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <Link to="event/new" className={classes.link}>
+      <Link to="add-new" className={classes.link}>
         <Button variant="raised" className={classes.button} color="primary">
           <Add className={classNames(classes.leftIcon, classes.iconSmall)} />
           Add new

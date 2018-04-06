@@ -12,7 +12,7 @@ const App = () => (
       <CssBaseline />
       <Header />
       <Route exact path="/" component={Home} />
-      <Route path="/event/new" component={EventForm} />
+      <Route path="/add-new" component={EventForm} />
       <Route path="/event/:id" component={EventForm} />
     </div>
   </Router>

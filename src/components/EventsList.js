@@ -15,16 +15,11 @@ class EventsList extends React.Component {
   };
 
   componentDidMount() {
-    // fetch("http://localhost:3000/items")
-    fetch("/db.json", {
-      headers: {
-        "content-type": "application/json"
-      }
-    })
+    fetch("http://localhost:3000/items")
       .then(response => response.json())
       .then(json => {
         this.setState({
-          list: json.items
+          list: json
         });
       });
   }

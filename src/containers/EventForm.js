@@ -48,7 +48,7 @@ class EventForm extends React.Component {
 
     console.log(history.location.pathname);
     console.log(history);
-    history.location.pathname === "/event/new"
+    history.location.pathname === "/add-new"
       ? this.setState({
           name: "",
           mode: "new"
