@@ -2,18 +2,30 @@ import * as React from "react";
 import PageHeadline from "../components/PageHeadline";
 import Grid from "material-ui/Grid";
 import { Cancel, Save } from "../components/Buttons";
-
+import TextField from "material-ui/TextField";
 import { withStyles } from "material-ui/styles";
 import Paper from "material-ui/Paper";
+import Item from "../models/Item";
 
 const styles = theme => ({
   root: {
     minHeight: "80vh",
     padding: 10
   },
+  container: {
+    display: "flex",
+    flexWrap: "wrap",
+    flexDirection: "column"
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 300
+  },
   paper: {
-    height: 150,
-    marginTop: 20
+    minHeight: 150,
+    marginTop: 20,
+    padding: 15
     // width: 600
   },
   content: {
@@ -28,18 +40,25 @@ const styles = theme => ({
 
 class ItemForm extends React.Component {
   state = {
-    isGoing: true,
-    name: "",
+    data: new Item(),
     mode: ""
   };
 
-  handleInputChange = item => {
+  // handleChange = name => event => {
+  //   this.setState({
+  //     data: { ...this.state.data, [name]: event.target.value }
+  //   });
+  // };
+
+  handleChange = item => {
     const target = item.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
-    const name = target.name;
-
-    this.setState({
-      [name]: value
+    const name = target.id;
+    // this.setState({
+    //   data: { ...this.state.data, [name]: value }
+    // });
+    this.setState(prevState => {
+      return { data: { ...prevState.data, [name]: value } };
     });
   };
 
@@ -48,14 +67,14 @@ class ItemForm extends React.Component {
 
     history.location.pathname === "/add-new"
       ? this.setState({
-          name: "",
+          data: {},
           mode: "new"
         })
       : fetch(`http://localhost:3000/items/${match.params.id}`)
           .then(response => response.json())
           .then(json => {
             this.setState({
-              name: json.title,
+              data: json,
               mode: "edit"
             });
           });
@@ -64,11 +83,10 @@ class ItemForm extends React.Component {
   addNew = e => {
     e.preventDefault();
     let url = "http://localhost:3000/items";
-    let data = { title: this.state.name };
 
     fetch(url, {
       method: "POST",
-      body: JSON.stringify(data), // data can be `string` or {object}!
+      body: JSON.stringify(this.state.data), // data can be `string` or {object}!
       headers: new Headers({
         "Content-Type": "application/json"
       })
@@ -80,11 +98,9 @@ class ItemForm extends React.Component {
     const { match } = this.props;
     let url = `http://localhost:3000/items/${match.params.id}`;
 
-    let data = { title: this.state.name };
-
     fetch(url, {
       method: "PUT",
-      body: JSON.stringify(data), // data can be `string` or {object}!
+      body: JSON.stringify(this.state.data), // data can be `string` or {object}!
       headers: new Headers({
         "Content-Type": "application/json"
       })
@@ -107,19 +123,36 @@ class ItemForm extends React.Component {
                 <Cancel />
               ]}
             />
-            <Paper className={classes.paper}>
-              <form>
-                <label>
-                  Name:
-                  <input
-                    name="name"
-                    type="text"
-                    value={this.state.name}
-                    onChange={this.handleInputChange}
+
+            {mode === "details" ? (
+              <p>detale</p>
+            ) : (
+              <Paper className={classes.paper}>
+                <form
+                  className={classes.container}
+                  noValidate
+                  autoComplete="off"
+                >
+                  <TextField
+                    id="name"
+                    label="Name"
+                    className={classes.textField}
+                    value={this.state.data.name}
+                    onChange={this.handleChange}
+                    margin="normal"
                   />
-                </label>
-              </form>
-            </Paper>
+                  <TextField
+                    id="desc"
+                    label="Description"
+                    multiline
+                    className={classes.textField}
+                    value={this.state.data.desc}
+                    onChange={this.handleChange}
+                    margin="normal"
+                  />
+                </form>
+              </Paper>
+            )}
           </Grid>
         </Grid>
       </React.Fragment>
