@@ -41,6 +41,8 @@ class Item extends React.Component {
       <Paper className={classes.paper}>
         <Grid container spacing={12} className={classes.root}>
           <Grid item xs={login ? 9 : 12}>
+
+
             <Typography variant="title" gutterBottom>
               {data.name}
             </Typography>
