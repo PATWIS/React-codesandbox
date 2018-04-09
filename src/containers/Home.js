@@ -21,12 +21,12 @@ const styles = theme => ({
 });
 
 const Home = props => {
-  const { classes, history } = props;
+  const { classes, history, login } = props;
   return (
     <Grid className={classes.root} justify="center" container>
       <Grid item xs={12} sm={11} md={8} className={classes.content}>
-        <PageHeadline name={"Items List"} buttons={<AddNew />} />
-        <ItemsList history={history} />
+        <PageHeadline name={"Items List"} login={login} buttons={<AddNew />} />
+        <ItemsList history={history} login={login} />
         {/*<Button variant="fab" color="primary" className={classes.fab}>
           <AddIcon />
         </Button> */}

@@ -40,11 +40,11 @@ class PageHeadline extends React.Component {
   };
 
   render() {
-    const { classes, name, buttons } = this.props;
+    const { classes, name, buttons, login } = this.props;
     return (
       <div>
         <Toolbar>
-          <Typography className={classes.flex} variant="title" gutterBottom>
+          <Typography className={classes.flex} variant="headline" gutterBottom>
             {name}
           </Typography>
           {/*} <FormControl className={classes.formControl}>
@@ -61,7 +61,7 @@ class PageHeadline extends React.Component {
               <MenuItem value={20}>Option 2</MenuItem>
             </Select>
           </FormControl>*/}
-          {buttons}
+          {login && buttons}
         </Toolbar>
         <Divider light />
       </div>

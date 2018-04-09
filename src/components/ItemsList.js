@@ -20,9 +20,9 @@ class ItemsList extends React.Component {
     fetch(url, {
       method: "DELETE"
     }).then(() => {
-      console.log(`item ${data.title} has deleted.`);
+      console.log(`item ${data.name} has deleted.`);
       this.setState(prevState => ({
-        list: prevState.list.filter(el => el !== data.id)
+        list: prevState.list.filter(el => el.id !== data.id)
       }));
     });
   };
@@ -31,13 +31,11 @@ class ItemsList extends React.Component {
     fetch("http://localhost:3000/items")
       .then(response => response.json())
       .catch(e => {
-        console.log(e);
         this.setState({
           loading: false
         });
       })
       .then(json => {
-        console.log(json);
         this.setState({
           list: json,
           loading: false
@@ -46,7 +44,7 @@ class ItemsList extends React.Component {
   }
 
   render() {
-    const { history } = this.props;
+    const { history, login } = this.props;
     const { list, loading } = this.state;
 
     return (
@@ -65,6 +63,7 @@ class ItemsList extends React.Component {
             ) : (
               list.map(e => (
                 <Item
+                  login={login}
                   key={e.id}
                   _handleDelete={this.deleteItem}
                   history={history}
