@@ -40,7 +40,9 @@ class Item extends React.Component {
     return (
       <Paper className={classes.paper}>
         <Grid container spacing={12} className={classes.root}>
-          <Grid item xs={9}>
+          <Grid item xs={login ? 9 : 12}>
+
+
             <Typography variant="title" gutterBottom>
               {data.name}
             </Typography>
