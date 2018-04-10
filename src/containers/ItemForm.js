@@ -44,12 +44,6 @@ class ItemForm extends React.Component {
     mode: ""
   };
 
-  // handleChange = name => event => {
-  //   this.setState({
-  //     data: { ...this.state.data, [name]: event.target.value }
-  //   });
-  // };
-
   handleChange = item => {
     const target = item.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
@@ -63,18 +57,17 @@ class ItemForm extends React.Component {
   };
 
   componentDidMount() {
-    const { history, match } = this.props;
-
-    history.location.pathname === "/add-new"
+    const { addNew, match } = this.props;
+    addNew
       ? this.setState({
-          data: {},
+          data: new Item(),
           mode: "new"
         })
       : fetch(`http://localhost:3000/items/${match.params.id}`)
           .then(response => response.json())
           .then(json => {
             this.setState({
-              data: json,
+              data: new Item(json),
               mode: "edit"
             });
           });
@@ -108,13 +101,14 @@ class ItemForm extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, login } = this.props;
     const { mode } = this.state;
     return (
       <React.Fragment>
         <Grid className={classes.root} justify="center" container>
           <Grid item xs={12} sm={11} md={8} className={classes.content}>
             <PageHeadline
+              login={login}
               name={mode === "new" ? "Add new item" : "Edit item"}
               buttons={[
                 <Save
