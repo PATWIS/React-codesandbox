@@ -51,7 +51,7 @@ class Item extends React.Component {
 
   goToEdit = () => {
     const { data, history } = this.props;
-    history.push(`/item/${data.id}`);
+    history.push(`/item/${data.id}`)
   };
 
   handleMenu = event => {
