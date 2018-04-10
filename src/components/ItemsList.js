@@ -83,11 +83,17 @@ class ItemsList extends React.Component {
         ) : (
           <div>
             <p>
-              Please, run local json-server and copy content from
-              public/db.json.
+              This App uses JSON-server API. Please, run json-server on
+              localhost:3000.
             </p>
-            <p>
-              You can find more info here:
+            <ul>
+              <li>npm install json-server</li>
+              <li>Create a db.json file</li>
+
+              <li>copy content from public/db.json.</li>
+              <li>json-server --watch db.json</li>
+            </ul>
+            <p>You can find more info here:
               https://github.com/typicode/json-server
             </p>
           </div>
