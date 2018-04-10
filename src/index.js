@@ -25,9 +25,20 @@ class App extends React.Component {
         <div className="container">
           <CssBaseline />
           <Header login={login} loginHandler={this.loginHandler} />
-          <Route exact path="/" render={() => <Home login={login} />} />
-          <Route path="/add-new" component={ItemForm} />
-          <Route path="/item/:id" component={ItemForm} />
+          <Route
+            exact
+            path="/"
+            render={props => <Home {...props} login={login} />}
+          />
+          <Route
+            path="/add-new"
+            render={props => <ItemForm {...props} login={login} addNew />}
+          />
+
+          <Route
+            path="/item/:id"
+            render={props => <ItemForm {...props} login={login} />}
+          />
         </div>
       </Router>
     );
