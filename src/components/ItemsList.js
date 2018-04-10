@@ -1,10 +1,18 @@
 import React from "react";
 import { withStyles } from "material-ui/styles";
 import Item from "./Item";
+import { CircularProgress } from "material-ui/Progress";
 
 const styles = theme => ({
   root: {
-    flex: 1
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    height: 500
+  },
+  progress: {
+    margin: theme.spacing.unit * 2,
+    textAlign: "center"
   }
 });
 
@@ -44,46 +52,46 @@ class ItemsList extends React.Component {
   }
 
   render() {
-    const { history, login } = this.props;
+    const { history, classes, login } = this.props;
     const { list, loading } = this.state;
 
     return (
       <div>
-        <div>
-          {loading ? (
-            "loading..."
-          ) : list ? (
-            Object.keys(list).length === 0 && list.constructor === Object ? (
-              <p>
-                Please check if have you created "list" object in your local
-                db.json
-              </p>
-            ) : list.length === 0 ? (
-              <p> There are no elements, please add new item.</p>
-            ) : (
-              list.map(e => (
-                <Item
-                  login={login}
-                  key={e.id}
-                  _handleDelete={this.deleteItem}
-                  history={history}
-                  data={e}
-                />
-              ))
-            )
+        {loading ? (
+          <div className={classes.root}>
+            <CircularProgress className={classes.progress} />
+          </div>
+        ) : list ? (
+          Object.keys(list).length === 0 && list.constructor === Object ? (
+            <p>
+              Please check if have you created "list" object in your local
+              db.json
+            </p>
+          ) : list.length === 0 ? (
+            <p> There are no elements, please add new item.</p>
           ) : (
-            <div>
-              <p>
-                Please, run local json-server and copy content from
-                public/db.json.
-              </p>
-              <p>
-                You can find more info here:
-                https://github.com/typicode/json-server
-              </p>
-            </div>
-          )}
-        </div>
+            list.map(e => (
+              <Item
+                login={login}
+                key={e.id}
+                _handleDelete={this.deleteItem}
+                history={history}
+                data={e}
+              />
+            ))
+          )
+        ) : (
+          <div>
+            <p>
+              Please, run local json-server and copy content from
+              public/db.json.
+            </p>
+            <p>
+              You can find more info here:
+              https://github.com/typicode/json-server
+            </p>
+          </div>
+        )}
       </div>
     );
   }
