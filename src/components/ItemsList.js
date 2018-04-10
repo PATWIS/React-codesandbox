@@ -93,8 +93,7 @@ class ItemsList extends React.Component {
               <li>copy content from public/db.json.</li>
               <li>json-server --watch db.json</li>
             </ul>
-            <p>
-              You can find more info here:
+            <p>You can find more info here:
               https://github.com/typicode/json-server
             </p>
           </div>
