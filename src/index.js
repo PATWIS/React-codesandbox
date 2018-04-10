@@ -1,6 +1,7 @@
 import React from "react";
 import { render } from "react-dom";
 import Home from "./containers/Home";
+import Teams from "./components/Teams";
 import ItemForm from "./containers/ItemForm";
 import Header from "./components/Header";
 import { BrowserRouter as Router, Route } from "react-router-dom";
@@ -38,6 +39,10 @@ class App extends React.Component {
           <Route
             path="/item/:id"
             render={props => <ItemForm {...props} login={login} />}
+          />
+          <Route
+            path="/teams"
+            render={props => <Teams {...props} login={login} />}
           />
         </div>
       </Router>
