@@ -39,8 +39,15 @@ class PageHeadline extends React.Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
+  componentDidMount() {
+    this.setState({
+      login: this.props.login
+    });
+  }
+
   render() {
-    const { classes, name, buttons, login } = this.props;
+    const { classes, name, buttons } = this.props;
+    const { login } = this.state;
     return (
       <div>
         <Toolbar>
