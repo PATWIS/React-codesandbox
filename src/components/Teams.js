@@ -1,6 +1,7 @@
 import React from "react";
 import { withStyles } from "material-ui/styles";
 import Item from "./Item";
+import Team from "../models/Team";
 import { CircularProgress } from "material-ui/Progress";
 import Button from "material-ui/Button";
 
@@ -14,8 +15,28 @@ const styles = theme => ({
   progress: {
     margin: theme.spacing.unit * 2,
     textAlign: "center"
+  },
+  scoreResult: {
+    width: 20,
+    margin: 5
   }
 });
+
+const Info = () => (
+  <div>
+    <p>
+      This App uses JSON-server API. Please, run json-server on localhost:3000.
+    </p>
+    <ul>
+      <li>npm install json-server</li>
+      <li>Create a db.json file</li>
+
+      <li>copy content from public/db.json.</li>
+      <li>json-server --watch db.json</li>
+    </ul>
+    <p>You can find more info here: https://github.com/typicode/json-server</p>
+  </div>
+);
 
 class Teams extends React.Component {
   state = {
@@ -73,15 +94,14 @@ class Teams extends React.Component {
   addNew = e => {
     e.preventDefault();
     let url = "http://localhost:3000/teams";
-
-    let newTeam = {
+    let team = new Team({
       name: `Team ${this.state.count + 1}`,
       opponents: this.getOpponents()
-    };
+    });
 
     fetch(url, {
       method: "POST",
-      body: JSON.stringify(newTeam), // data can be `string` or {object}!
+      body: JSON.stringify(team), // data can be `string` or {object}!
       headers: new Headers({
         "Content-Type": "application/json"
       })
@@ -126,7 +146,10 @@ class Teams extends React.Component {
           matches.push({
             id: matches.length + 1,
             team1: team.name,
-            team2: o.name
+            team2: o.name,
+            team1Score: "",
+            team2Score: "",
+            resultIsSet: false
           });
         }
       });
@@ -150,6 +173,54 @@ class Teams extends React.Component {
     });
   };
 
+  setScore = (gameId, event) => {
+    let value = event.target.value;
+    let name = event.target.name;
+    console.log(name);
+
+    this.setState(prevState => {
+      prevState.games.find(g => g.id === gameId)[name] = value;
+      return {
+        ...prevState
+      };
+    });
+    console.log(this.state.games.find(g => g.id === gameId));
+  };
+
+  setResult = game => {
+    let win = null,
+      draw;
+    console.log(game);
+    switch (true) {
+      case game.team1Score > game.team2Score:
+        win = game.team1;
+        break;
+      case game.team1Score < game.team2Score:
+        win = game.team2;
+        break;
+      default:
+        draw = true;
+        break;
+    }
+
+    this.setState(prevState => {
+      prevState.games.find(g => g.id === game.id).resultIsSet = true;
+      if (win) {
+        prevState.teams.find(t => t.name === win).totalPoints += 3;
+      } else {
+        prevState.teams.find(t => t.name === game.team1).totalPoints += 1;
+        prevState.teams.find(t => t.name === game.team2).totalPoints += 1;
+      }
+
+      prevState.teams.find(t => t.name === game.team1).matches += 1;
+      prevState.teams.find(t => t.name === game.team2).matches += 1;
+
+      return {
+        ...prevState
+      };
+    });
+  };
+
   componentDidMount() {
     fetch("http://localhost:3000/teams")
       .then(response => response.json())
@@ -164,11 +235,12 @@ class Teams extends React.Component {
           count: json.length,
           loading: false
         });
+        this.createSchedule();
       });
   }
 
   render() {
-    const { history, classes, login } = this.props;
+    const { classes } = this.props;
     const { teams, loading, games } = this.state;
 
     return (
@@ -195,33 +267,48 @@ class Teams extends React.Component {
             </ul>
           )
         ) : (
-          <div>
-            <p>
-              This App uses JSON-server API. Please, run json-server on
-              localhost:3000.
-            </p>
-            <ul>
-              <li>npm install json-server</li>
-              <li>Create a db.json file</li>
-
-              <li>copy content from public/db.json.</li>
-              <li>json-server --watch db.json</li>
-            </ul>
-            <p>
-              You can find more info here:
-              https://github.com/typicode/json-server
-            </p>
-          </div>
+          <Info />
         )}
         <Button onClick={this.addNew}>Add new team</Button>
         <h3>Schedule</h3>
         <ul>
           {games.map(e => (
             <li key={e.id}>
-              game {e.id}: {e.team1} vs {e.team2}
+              game {e.id}: {e.team1} vs {e.team2}{" "}
+              <input
+                disabled={e.resultIsSet}
+                name="team1Score"
+                onChange={this.setScore.bind(this, e.id)}
+                value={e.team1Score}
+                className={classes.scoreResult}
+              />
+              :{""}
+              <input
+                disabled={e.resultIsSet}
+                name="team2Score"
+                onChange={this.setScore.bind(this, e.id)}
+                value={e.team2Score}
+                className={classes.scoreResult}
+              />
+              {!e.resultIsSet && (
+                <Button
+                  disabled={e.team1Score === "" || e.team2Score === ""}
+                  onClick={this.setResult.bind(this, e)}
+                >
+                  set
+                </Button>
+              )}
             </li>
           ))}
         </ul>
+        <h3>Table</h3>
+        <ol>
+          {teams.sort((a, b) => a.totalPoints < b.totalPoints).map(t => (
+            <li key={t.id}>
+              {t.name} M: {t.matches} PKT: {t.totalPoints}{" "}
+            </li>
+          ))}
+        </ol>
       </div>
     );
   }
