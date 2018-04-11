@@ -102,13 +102,33 @@ class Teams extends React.Component {
     let { teams } = this.state;
     let matches = [];
 
+    // game + revange
+    // teams.forEach(team => {
+    //   team.opponents.forEach(o => {
+    //     matches.push({
+    //       id: matches.length + 1,
+    //       team1: team.name,
+    //       team2: o.name
+    //     });
+    //   });
+    // });
+
     teams.forEach(team => {
       team.opponents.forEach(o => {
-        matches.push({
-          id: matches.length + 1,
-          team1: team.name,
-          team2: o.name
+        var obj = matches.find(function(obj) {
+          return (
+            (obj.team1 === o.name || obj.team1 === team.name) &&
+            (obj.team2 === o.name || obj.team2 === team.name)
+          );
         });
+
+        if (!obj) {
+          matches.push({
+            id: matches.length + 1,
+            team1: team.name,
+            team2: o.name
+          });
+        }
       });
     });
 
