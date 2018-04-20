@@ -31,43 +31,16 @@ const styles = theme => ({
 });
 
 class PageHeadline extends React.Component {
-  state = {
-    value: 10
-  };
-
-  handleChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
-  };
-
-  componentDidMount() {
-    this.setState({
-      login: this.props.login
-    });
-  }
-
   render() {
-    const { classes, name, buttons } = this.props;
-    const { login } = this.state;
+    const { classes, name, buttons, login } = this.props;
+
     return (
       <div>
         <Toolbar>
           <Typography className={classes.flex} variant="headline" gutterBottom>
             {name}
           </Typography>
-          {/*} <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="category">Category</InputLabel>
-            <Select
-              value={this.state.value}
-              onChange={this.handleChange}
-              inputProps={{
-                name: "value",
-                id: "category"
-              }}
-            >
-              <MenuItem value={10}>Option 1</MenuItem>
-              <MenuItem value={20}>Option 2</MenuItem>
-            </Select>
-          </FormControl>*/}
+
           {login && buttons}
         </Toolbar>
         <Divider light />

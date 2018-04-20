@@ -19,6 +19,8 @@ const styles = theme => ({
 class ItemsList extends React.Component {
   state = {
     list: [],
+    query: "",
+    filtered_list: [],
     loading: true
   };
 
@@ -44,19 +46,55 @@ class ItemsList extends React.Component {
         });
       })
       .then(json => {
-        this.setState({
-          list: json,
-          loading: false
+        this.setState(prevState => {
+          return {
+            list: json,
+            loading: false
+          };
         });
+
+        this.filterList();
       });
   }
 
+  filterList = event => {
+    // this.setState({
+    //   loading: true
+    // });
+    clearTimeout(this.pending);
+    let query = event ? event.target.value : this.state.query;
+
+    this.pending = setTimeout(() => {
+      this.setState(prevState => {
+        let result;
+        query === ""
+          ? (result = prevState.list)
+          : (result = prevState.list.filter(item => {
+              if (query.length >= 3) {
+                return (
+                  item.name.toLowerCase().includes(query) ||
+                  item.desc.toLowerCase().includes(query)
+                );
+              } else {
+                return item;
+              }
+            }));
+
+        return {
+          filtered_list: result,
+          loading: false
+        };
+      });
+    }, 200);
+  };
+
   render() {
     const { history, classes, login } = this.props;
-    const { list, loading } = this.state;
+    const { list, loading, filtered_list } = this.state;
 
     return (
       <div>
+        <input type="text" placeholder="find" onChange={this.filterList} />
         {loading ? (
           <div className={classes.root}>
             <CircularProgress className={classes.progress} />
@@ -70,7 +108,7 @@ class ItemsList extends React.Component {
           ) : list.length === 0 ? (
             <p> There are no elements, please add new item.</p>
           ) : (
-            list.map(e => (
+            filtered_list.map(e => (
               <Item
                 login={login}
                 key={e.id}
@@ -93,7 +131,8 @@ class ItemsList extends React.Component {
               <li>copy content from public/db.json.</li>
               <li>json-server --watch db.json</li>
             </ul>
-            <p>You can find more info here:
+            <p>
+              You can find more info here:
               https://github.com/typicode/json-server
             </p>
           </div>

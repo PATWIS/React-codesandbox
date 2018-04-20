@@ -22,6 +22,7 @@ const styles = theme => ({
 
 const Home = props => {
   const { classes, history, login } = props;
+
   return (
     <Grid className={classes.root} justify="center" container>
       <Grid item xs={12} sm={11} md={8} className={classes.content}>

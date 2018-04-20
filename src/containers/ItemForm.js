@@ -6,6 +6,8 @@ import TextField from "material-ui/TextField";
 import { withStyles } from "material-ui/styles";
 import Paper from "material-ui/Paper";
 import Item from "../models/Item";
+import Home from "./Home";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 const styles = theme => ({
   root: {
@@ -103,6 +105,11 @@ class ItemForm extends React.Component {
   render() {
     const { classes, login } = this.props;
     const { mode } = this.state;
+
+    if (!login) {
+      this.props.history.push("/");
+    }
+
     return (
       <React.Fragment>
         <Grid className={classes.root} justify="center" container>

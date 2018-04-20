@@ -176,7 +176,6 @@ class Teams extends React.Component {
   setScore = (gameId, event) => {
     let value = event.target.value;
     let name = event.target.name;
-    console.log(name);
 
     this.setState(prevState => {
       prevState.games.find(g => g.id === gameId)[name] = value;
@@ -184,7 +183,6 @@ class Teams extends React.Component {
         ...prevState
       };
     });
-    console.log(this.state.games.find(g => g.id === gameId));
   };
 
   setResult = game => {
