@@ -2,6 +2,7 @@ import React from "react";
 import { withStyles } from "material-ui/styles";
 import Item from "./Item";
 import { CircularProgress } from "material-ui/Progress";
+import AppInfo from "./AppInfo";
 
 const styles = theme => ({
   root: {
@@ -42,7 +43,8 @@ class ItemsList extends React.Component {
       .then(response => response.json())
       .catch(e => {
         this.setState({
-          loading: false
+          loading: false,
+          serverError: true
         });
       })
       .then(json => {
@@ -90,7 +92,19 @@ class ItemsList extends React.Component {
 
   render() {
     const { history, classes, login } = this.props;
-    const { list, loading, filtered_list } = this.state;
+    const { list, loading, filtered_list, serverError } = this.state;
+
+    if (serverError) {
+      return <AppInfo />;
+    }
+
+    if (Object.keys(list).length === 0 && list.constructor === Object) {
+      return (
+        <p>
+          Please check if have you created "list" object in your local db.json
+        </p>
+      );
+    }
 
     return (
       <div>
@@ -99,43 +113,18 @@ class ItemsList extends React.Component {
           <div className={classes.root}>
             <CircularProgress className={classes.progress} />
           </div>
-        ) : list ? (
-          Object.keys(list).length === 0 && list.constructor === Object ? (
-            <p>
-              Please check if have you created "list" object in your local
-              db.json
-            </p>
-          ) : list.length === 0 ? (
-            <p> There are no elements, please add new item.</p>
-          ) : (
-            filtered_list.map(e => (
-              <Item
-                login={login}
-                key={e.id}
-                _handleDelete={this.deleteItem}
-                history={history}
-                data={e}
-              />
-            ))
-          )
+        ) : list.length === 0 ? (
+          <p> There are no elements, please add new item.</p>
         ) : (
-          <div>
-            <p>
-              This App uses JSON-server API. Please, run json-server on
-              localhost:3000.
-            </p>
-            <ul>
-              <li>npm install json-server</li>
-              <li>Create a db.json file</li>
-
-              <li>copy content from public/db.json.</li>
-              <li>json-server --watch db.json</li>
-            </ul>
-            <p>
-              You can find more info here:
-              https://github.com/typicode/json-server
-            </p>
-          </div>
+          filtered_list.map(e => (
+            <Item
+              login={login}
+              key={e.id}
+              _handleDelete={this.deleteItem}
+              history={history}
+              data={e}
+            />
+          ))
         )}
       </div>
     );
