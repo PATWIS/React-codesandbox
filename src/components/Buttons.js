@@ -4,6 +4,7 @@ import classNames from "classnames";
 import { Link } from "react-router-dom";
 import Button from "material-ui/Button";
 import Add from "material-ui-icons/Add";
+import IconButton from "material-ui/IconButton";
 
 const styles = theme => ({
   flex: {
@@ -12,11 +13,15 @@ const styles = theme => ({
   button: {
     margin: theme.spacing.unit
   },
+  buttonAdd: {
+    width: 10,
+    padding: 0
+  },
   leftIcon: {
-    marginRight: theme.spacing.unit
+    // marginRight: theme.spacing.unit
   },
   iconSmall: {
-    // fontSize: 20
+    fontSize: 20
   },
   link: {
     color: "inherit",
@@ -36,10 +41,9 @@ class AddNewBtn extends React.Component {
     const { classes } = this.props;
     return (
       <Link to="add-new" className={classes.link}>
-        <Button variant="raised" className={classes.button} color="primary">
+        <IconButton color="primary" className={classes.button} aria-label="Add">
           <Add className={classNames(classes.leftIcon, classes.iconSmall)} />
-          Add new
-        </Button>
+        </IconButton>
       </Link>
     );
   }

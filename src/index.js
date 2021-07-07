@@ -8,7 +8,7 @@ import CssBaseline from "material-ui/CssBaseline";
 
 class App extends React.Component {
   state = {
-    login: false
+    login: true
   };
   loginHandler = () => {
     alert("implementation in progress");

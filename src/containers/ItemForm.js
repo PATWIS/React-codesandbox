@@ -60,14 +60,14 @@ class ItemForm extends React.Component {
     const { addNew, match } = this.props;
     addNew
       ? this.setState({
-          data: {},
+          data: new Item(),
           mode: "new"
         })
       : fetch(`http://localhost:3000/items/${match.params.id}`)
           .then(response => response.json())
           .then(json => {
             this.setState({
-              data: json,
+              data: new Item(json),
               mode: "edit"
             });
           });
